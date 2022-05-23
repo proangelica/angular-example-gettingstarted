@@ -1,0 +1,36 @@
+<h2>Products</h2>
+
+<!-- con *ngFor (structural directives), il div si ripete per ogni prodotto nella lista -->
+<div *ngFor="let product of products">
+  <h3>
+    <!-- interpolation {{}}: permette di renderizzare il valore della proprietà specificata come testo -->
+
+    <!-- tramite [title]: si setta il titolo di ogni prodotto, ovvero il testo che si vede quando si passa il mouse sul nome del prodotto -->
+
+    <!-- la directive [routerLink] aiuta a personalizzare l'elemento ancora. in questo caso, l'URL contiene un segmento /products con valore uguale all'id del prodotto in questione
+    es: URL per un prodotto con id=1 -> https://getting-started-myfork.stackblitz.io/products/1 -->
+    <a
+      [title]="product.name + ' details'"
+      [routerLink]="['/products', product.id]"
+    >
+      {{ product.name }}
+    </a>
+  </h3>
+
+  <!-- Angular crea l'elemento <p> solo se il prodotto corrente ha una descrizione -->
+  <p *ngIf="product.description">Description: {{ product.description }}</p>
+
+  <!-- crea collegamento tra l'evento (click) (le parentesi attorno al nome dell'evento sono necessarie) del bottone e il metodo share() definito in product-list.component.ts -->
+  <button type="button" (click)="share()">share</button>
+
+  <app-product-alerts
+    [product]="product"
+    (notify)="onNotify()"
+  ></app-product-alerts>
+</div>
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+-->
